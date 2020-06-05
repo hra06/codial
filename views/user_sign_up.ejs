@@ -1,1 +1,24 @@
 <h1>Sign Up</h1>
+
+
+<form action="/users/create" method="post">
+    <div>
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+    </div>
+    <div>
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password">
+    </div>
+    <div>
+        <label for="cnfrmPassword">Confirm Password</label>
+        <input type="password" name="confirmPassword" id="cnfrmPassword">
+    </div>
+    <div>
+        <button type="submit">Sign Up</button>
+    </div>
+</form>
