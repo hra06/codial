@@ -1,0 +1,22 @@
+header {
+  display: flex;
+  background-color: #1d1a2b;
+  justify-content: space-between; }
+  header h1 {
+    margin: 0;
+    padding: 0;
+    margin-top: 1vh;
+    margin-left: 1vw;
+    color: #ffffff;
+    font-family: sans-serif; }
+  header ul {
+    padding-right: 1vw; }
+    header ul li {
+      display: inline;
+      color: white;
+      padding-left: 0.5vw; }
+      header ul li a {
+        color: white;
+        text-decoration: none;
+        font-family: serif;
+        font-size: 1.2rem; }
