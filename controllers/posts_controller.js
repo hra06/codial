@@ -7,8 +7,18 @@ module.exports.create = async function(req,res){
         let post = await Post.create({
             content:req.body.content,
             user:req.user._id
-        })
-        req.flash('sucesss','Post Created Successfully');
+        });
+
+        if(req.xhr){
+            return res.status(200).json({
+                data:{
+                    post:post
+                },
+                messages:"Post Created!"
+            })
+        }
+
+        req.flash('success','Post Created Successfully');
         return res.redirect('back');
     } catch (err) {
         console.log('Error in creating the post----->' ,err);
