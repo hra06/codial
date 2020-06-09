@@ -10,11 +10,34 @@ module.exports.profile = function(req, res){
 
 }
 
-module.exports.update = function(req,res){
+module.exports.update =async function(req,res){
     if(req.user.id==req.params.id){
-        User.findByIdAndUpdate(req.params.id, req.body,function(err,user){
-            return res.redirect('back');
-        });
+        
+        try {
+            let user = await User.findByIdAndUpdate(req.params.id)
+            // console.log(user.uploadedAvatar())
+            User.uploadedAvatar(req,res,function(err){
+                if(err){
+                    console.log('*****************Multer Error',err);
+                } 
+                
+                user.name = req.body.name;
+                user.email = req.body.email;
+                if(req.file){
+                    // this saving the path of the uploaded file into the avatar field in the user
+                    user.avatar = User.avatarPath+'/'+req.file.filename;
+                }
+                user.save();
+                return res.redirect('back');
+            })
+
+            // return res.redirect('back');
+        } catch (err) {
+            console.log(err)
+            req.flash('error', err);
+            return res.redirect('back');            
+        }
+        
     }else{
         return res.status1(401).send('Unauthorized!');
     }

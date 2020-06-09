@@ -13,6 +13,7 @@ const MongoStore = require('connect-mongo')(session);
 const sassMiddleware = require('node-sass-middleware');
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
+// const multer = require('multer');
 
 app.use(sassMiddleware({
     src:'./assets/scss',
@@ -24,6 +25,9 @@ app.use(express.urlencoded());
 app.use(cookieParser())
 
 app.use(express.static('./assets'))
+
+// Make the uploads file avilabe to browser
+app.use('/uploads', express.static(__dirname + '/uploads'));
 
 app.use(expressLayouts);
 // extract style and scripts from sub pages into the layout
