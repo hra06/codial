@@ -14,6 +14,21 @@
                     console.log(data.data.post);
                     let newPost = newPostDom(data.data.post);
                     $('#posts-list-container>ul').prepend(newPost);
+
+                    // Clear the textArea
+                    // let textArea = $('#post-area');
+                    // textArea.val('');
+                    // $('#post-area').val('');
+
+                    // Noty Added Successfully
+                    new Noty({
+                        theme:'relax',              
+                        text: 'Post Created Successfully',
+                        type:'success',
+                        layout: 'topRight',
+                        timeout: 1500
+                    }).show();
+
                     deletePost($(' .delete-post-button', newPostDom));
                 }, error: function(error){
                     console.log(error.responseText);
@@ -68,6 +83,15 @@
                 url: $(deleteLink).prop('href'),
                 success: function(data){
                     $(`#post-${data.data.post_id}`).remove();
+                    
+                    // Delete Post Noty
+                    new Noty({
+                        theme:'relax',              
+                        text: 'Post Deleted Successfully',
+                        type:'success',
+                        layout: 'topRight',
+                        timeout: 1500
+                    }).show();
                 },error: function(error){
                     console.log(error.responseText);
                 }
@@ -76,4 +100,35 @@
     }
 
     createPost();
+
+
+    let deletePostLoaded = function(){
+        let loadedDeleteButton = $('.delete-post-button');
+        
+        loadedDeleteButton.click(function(e){
+            e.preventDefault();
+
+            $.ajax({
+                type:'GET',
+                url: $('.delete-post-button').prop('href'),
+                success:function(data){
+                    $(`#post-${post._id}`).remove();
+                    
+                    // Delete Post Noty
+                    new Noty({
+                        theme:'relax',              
+                        text: 'Post Deleted Successfully',
+                        type:'success',
+                        layout: 'topRight',
+                        timeout: 1500
+                    }).show();
+                },error: function(error){
+                    console.log(error.responseText);
+                }
+
+            });
+        });
+    }
+
+    deletePostLoaded();
 }
